@@ -91,7 +91,7 @@ workflow FASTQ_ALIGN_DEDUP_BWAMETH {
     )
     ch_samtools_stats = SAMTOOLS_STATS.out.stats
 
-    if (!skip_deduplication || !use_gpu) {
+    if (!skip_deduplication && !use_gpu) {
         /*
         * Run Picard MarkDuplicates
         */
