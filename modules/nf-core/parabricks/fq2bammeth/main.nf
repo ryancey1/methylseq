@@ -14,12 +14,12 @@ process PARABRICKS_FQ2BAMMETH {
     path known_sites
 
     output:
-    tuple val(meta), path("*.bam"),       emit: bam
-    tuple val(meta), path("*.bai"),       emit: bai
-    path ("qc_metrics"),                  emit: qc_metrics,        optional: true
-    path ("*.table"),                     emit: bqsr_table,        optional: true
-    path ("*MarkDuplicates.metrics.txt"), emit: duplicate_metrics, optional: true
-    path ("versions.yml"),                emit: versions
+    tuple val(meta), path("*.bam"),                        emit: bam
+    tuple val(meta), path("*.bai"),                        emit: bai
+    tuple val(meta), path ("*MarkDuplicates.metrics.txt"), emit: duplicate_metrics, optional: true
+    path ("qc_metrics"),                                   emit: qc_metrics,        optional: true
+    path ("*.table"),                                      emit: bqsr_table,        optional: true
+    path ("versions.yml"),                                 emit: versions
 
     when:
     task.ext.when == null || task.ext.when
