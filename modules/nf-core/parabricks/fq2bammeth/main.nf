@@ -14,12 +14,12 @@ process PARABRICKS_FQ2BAMMETH {
     path known_sites
 
     output:
-    tuple val(meta), path("*.bam"), emit: bam
-    tuple val(meta), path("*.bai"), emit: bai
-    path ("qc_metrics"),            emit: qc_metrics,        optional: true
-    path ("*.table"),               emit: bqsr_table,        optional: true
-    path ("duplicate-metrics.txt"), emit: duplicate_metrics, optional: true
-    path ("versions.yml"),          emit: versions
+    tuple val(meta), path("*.bam"),       emit: bam
+    tuple val(meta), path("*.bai"),       emit: bai
+    path ("qc_metrics"),                  emit: qc_metrics,        optional: true
+    path ("*.table"),                     emit: bqsr_table,        optional: true
+    path ("*MarkDuplicates.metrics.txt"), emit: duplicate_metrics, optional: true
+    path ("versions.yml"),                emit: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -47,6 +47,7 @@ process PARABRICKS_FQ2BAMMETH {
         --ref ${index}/${fasta} \\
         ${in_fq_command} \\
         --out-bam ${prefix}.bam \\
+        --out-duplicate-metrics ${prefix}.MarkDuplicates.metrics.txt \\
         ${known_sites_command} \\
         ${known_sites_output} \\
         ${num_gpus} \\
