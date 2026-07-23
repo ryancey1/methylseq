@@ -52,17 +52,17 @@ workflow FASTQ_ALIGN_DEDUP_BWAMETH {
         )
         ch_alignment = BWAMETH_ALIGN.out.bam
         ch_versions  = BWAMETH_ALIGN.out.versions
-    }
 
-    /*
-     * Sort raw output BAM
-     */
-    SAMTOOLS_SORT (
-        ch_alignment,
-        [[:],[]], // [ [meta], [fasta]]
-        ''
-    )
-    ch_alignment = SAMTOOLS_SORT.out.bam
+        /*
+        * Sort raw output BAM
+        */
+        SAMTOOLS_SORT (
+            ch_alignment,
+            [[:],[]], // [ [meta], [fasta]]
+            ''
+        )
+        ch_alignment = SAMTOOLS_SORT.out.bam
+    }
 
     /*
      * Run samtools index on alignment
@@ -91,7 +91,7 @@ workflow FASTQ_ALIGN_DEDUP_BWAMETH {
     )
     ch_samtools_stats = SAMTOOLS_STATS.out.stats
 
-    if (!skip_deduplication) {
+    if (!skip_deduplication || !use_gpu) {
         /*
         * Run Picard MarkDuplicates
         */
