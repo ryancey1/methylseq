@@ -41,6 +41,7 @@ workflow FASTQ_ALIGN_DEDUP_BWAMETH {
         )
         ch_alignment = PARABRICKS_FQ2BAMMETH.out.bam
         ch_versions  = ch_versions.mix(PARABRICKS_FQ2BAMMETH.out.versions)
+        ch_picard_metrics = PARABRICKS_FQ2BAMMETH.out.duplicate_metrics
     } else {
         /*
         * Align with CPU version of bwameth
